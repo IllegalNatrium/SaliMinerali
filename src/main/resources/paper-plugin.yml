@@ -1,0 +1,4 @@
+name: SaliMinerali
+version: '${project.version}'
+main: puglia.saliminerali.SaliMineraliPlugin
+api-version: 1.17
