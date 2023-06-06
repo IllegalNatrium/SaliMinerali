@@ -1,6 +1,7 @@
 package puglia.saliminerali;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import puglia.saliminerali.listeners.PlayerJoinLeaveListener;
 import puglia.saliminerali.services.ClientService;
 import puglia.saliminerali.services.IClientService;
 
@@ -27,11 +28,21 @@ public final class SaliMineraliPlugin extends JavaPlugin {
 		try {
 			clientService.initializeClientService(getConfig().getString("TOKEN"));
 		} catch (LoginException | InterruptedException ignored) {}
+
+		this.getServer().getPluginManager().registerEvents(new PlayerJoinLeaveListener(), this);
 	}
 
 	@Override
 	public void onDisable() {
 		clientService.disposeClientService();
+	}
+
+	public static SaliMineraliPlugin getInstance() {
+		return instance;
+	}
+
+	public static IClientService getClientService() {
+		return clientService;
 	}
 
 }

@@ -1,1 +1,8 @@
 TOKEN: "" # Token here
+
+CHANNELS:
+  GUILD: 0 # Guild Id
+  JOIN_LEAVE_NOTIFY: 0 # Channel Id
+  ADVANCEMENT_NOTIFY: 0 # Channel Id
+  NEW_RECIPE_NOTIFY: 0 # Channel id
+  CHAT_NOTIFY: 0 # Channel Id
