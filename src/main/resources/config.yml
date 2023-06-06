@@ -1,8 +1,31 @@
 TOKEN: "" # Token here
 
-CHANNELS:
-  GUILD: 0 # Guild Id
-  JOIN_LEAVE_NOTIFY: 0 # Channel Id
-  ADVANCEMENT_NOTIFY: 0 # Channel Id
-  NEW_RECIPE_NOTIFY: 0 # Channel id
-  CHAT_NOTIFY: 0 # Channel Id
+DISCORD_SIDE:
+  # Type LONG
+  # This needs to be the channel id!
+  CHAT_NOTIFY: 0;
+
+MINECRAFT_SIDE:
+  # Type LONG
+  # This needs to be the guild id!
+  GUILD: 0
+
+  # Type LONG
+  # This needs to be the channel id!
+  JOIN_LEAVE_NOTIFY: 0
+
+  # Type URL
+  # This needs to be the WEBHOOK of the channel!
+  GENERIC_PLAYER_EVENTS: https://google.com
+
+  # Type URL
+  # This needs to be the WEBHOOK of the channel!
+  ADVANCEMENT_NOTIFY: https://google.com
+
+  # Type LONG
+  # This needs to be the channel id!
+  NEW_RECIPE_NOTIFY: 0
+
+  # Type URL
+  # This needs to be the WEBHOOK of the channel!
+  CHAT_NOTIFY: https://google.com

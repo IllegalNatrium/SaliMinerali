@@ -1,9 +1,10 @@
 package puglia.saliminerali;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import puglia.saliminerali.listeners.PlayerChatListener;
 import puglia.saliminerali.listeners.PlayerJoinLeaveListener;
-import puglia.saliminerali.services.ClientService;
-import puglia.saliminerali.services.IClientService;
+import puglia.saliminerali_discord.services.ClientService;
+import puglia.saliminerali_discord.services.IClientService;
 
 import javax.security.auth.login.LoginException;
 
@@ -13,11 +14,10 @@ public final class SaliMineraliPlugin extends JavaPlugin {
 	private static IClientService clientService;
 
 	/*
-	TODO:
-	 Chat condivisa su discord
-	 Advancement condivisi su discord
-	 Scoperta nuovi recive condivisi su discord
-	 Entrate/Uscite condivise su discord
+	TODO: Minecraft-Side
+	 Chat condivisa su discord [v]
+	 Advancement condivisi su discord [v]
+	 Entrate/Uscite condivise su discord [v]
 	*/
 
 	@Override
@@ -30,6 +30,7 @@ public final class SaliMineraliPlugin extends JavaPlugin {
 		} catch (LoginException | InterruptedException ignored) {}
 
 		this.getServer().getPluginManager().registerEvents(new PlayerJoinLeaveListener(), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
 	}
 
 	@Override

@@ -52,6 +52,11 @@
 
 	<repositories>
 		<repository>
+			<id>central</id>
+			<name>Maven Central</name>
+			<url>https://repo1.maven.org/maven2/</url>
+		</repository>
+		<repository>
 			<id>papermc-repo</id>
 			<url>https://repo.papermc.io/repository/maven-public/</url>
 		</repository>
@@ -83,6 +88,11 @@
 					<artifactId>opus-java</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>club.minnced</groupId>
+			<artifactId>discord-webhooks</artifactId>
+			<version>0.8.2</version>
 		</dependency>
 	</dependencies>
 
