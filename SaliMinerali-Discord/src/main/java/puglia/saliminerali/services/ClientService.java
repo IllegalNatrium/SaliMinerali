@@ -23,6 +23,7 @@ import java.util.List;
 public class ClientService implements IClientService {
 
 	private JDA client;
+	private final IPresenceService presenceService = new PresenceService();
 	private final Dotenv DOT_ENV = Dotenv.configure()
 			.filename(".env")
 			.directory("./assets/")
@@ -42,12 +43,11 @@ public class ClientService implements IClientService {
 
 	private final List<CacheFlag> cacheFlags = List.of(CacheFlag.MEMBER_OVERRIDES, CacheFlag.EMOJI, CacheFlag.ROLE_TAGS);
 
-	// not in use
 	public static final List<Activity> activityListOrder = List.of(
 			Activity.playing("Starting Sali Minerali"),
 			Activity.playing("Initializing ClientService"),
 			Activity.playing("Initializing PrefixCommandRegistryStage"),
-			Activity.playing("Initializing SlashCOmmandRegistryStage"),
+			Activity.playing("Initializing SlashCommandRegistryStage"),
 			Activity.playing("Sali Minerali - Booted up!"));
 
 	private Guild guild;
@@ -58,11 +58,11 @@ public class ClientService implements IClientService {
 				.setChunkingFilter(ChunkingFilter.ALL)
 				.setCompression(Compression.NONE)
 				.setStatus(OnlineStatus.DO_NOT_DISTURB)
-				.setActivity(Activity.listening("Loading Sali Minerali"))
+				.setActivity(Activity.playing("Loading Sali Minerali"))
 				.enableCache(cacheFlags)
 				.enableIntents(GATEWAY_INTENTS)
 				.setAutoReconnect(true)
-				.addEventListeners(slashCommandRegistry, new PrefixCommandRegistry(new PrefixPingCommand()))
+				.addEventListeners(presenceService, slashCommandRegistry, new PrefixCommandRegistry(new PrefixPingCommand()))
 				.build()
 				.awaitReady();
 

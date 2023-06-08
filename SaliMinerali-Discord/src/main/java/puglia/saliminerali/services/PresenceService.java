@@ -5,13 +5,13 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
+import puglia.saliminerali.PugliaSaliMinerali;
 
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-/* Needs a Custom Task Manager to be implemented, Not in use*/
 public class PresenceService extends ListenerAdapter implements IPresenceService {
 
 	private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(3);
@@ -26,11 +26,14 @@ public class PresenceService extends ListenerAdapter implements IPresenceService
 	@Override
 	public void initializePresenceService(JDA client) {
 		List<Activity> activityListOrder = ClientService.activityListOrder;
-		this.executorService.schedule(() -> {
+		this.executorService.scheduleAtFixedRate(() -> {
 			Activity activity = activityListOrder.get(index);
 			client.getPresence()
 					.setActivity(activity);
+			if(this.index == activityListOrder.size()-1) {
+				this.executorService.shutdown();
+			}
 			index++;
-		}, 2, TimeUnit.MINUTES);
+		}, 10, 15, TimeUnit.SECONDS);
 	}
 }
