@@ -1,5 +1,6 @@
 package puglia.saliminerali.services;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDABuilder;
@@ -12,16 +13,19 @@ import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.Compression;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.jetbrains.annotations.Nullable;
+import puglia.saliminerali.commands.prefix.PrefixGuildInfoCommand;
 import puglia.saliminerali.commands.prefix.PrefixPingCommand;
+import puglia.saliminerali.commands.slash.SlashGuildInfoCommand;
 import puglia.saliminerali.registries.prefix.PrefixCommandRegistry;
 import puglia.saliminerali.registries.slash.ISlashCommandRegistry;
 import puglia.saliminerali.registries.slash.SlashCommandRegistry;
 
 import javax.security.auth.login.LoginException;
+import java.awt.*;
+import java.time.Instant;
 import java.util.List;
 
 public class ClientService implements IClientService {
-
 	private JDA client;
 	private final IPresenceService presenceService = new PresenceService();
 	private final Dotenv DOT_ENV = Dotenv.configure()
@@ -39,7 +43,9 @@ public class ClientService implements IClientService {
 			GatewayIntent.GUILD_EMOJIS_AND_STICKERS,
 			GatewayIntent.GUILD_INVITES,
 			GatewayIntent.MESSAGE_CONTENT);
-	private final ISlashCommandRegistry slashCommandRegistry = new SlashCommandRegistry();
+	private final ISlashCommandRegistry slashCommandRegistry = new SlashCommandRegistry(
+			new SlashGuildInfoCommand("guild-info","Guild info command")
+	);
 
 	private final List<CacheFlag> cacheFlags = List.of(CacheFlag.MEMBER_OVERRIDES, CacheFlag.EMOJI, CacheFlag.ROLE_TAGS);
 
@@ -62,7 +68,7 @@ public class ClientService implements IClientService {
 				.enableCache(cacheFlags)
 				.enableIntents(GATEWAY_INTENTS)
 				.setAutoReconnect(true)
-				.addEventListeners(presenceService, slashCommandRegistry, new PrefixCommandRegistry(new PrefixPingCommand()))
+				.addEventListeners(presenceService, slashCommandRegistry, new PrefixCommandRegistry(new PrefixGuildInfoCommand(), new PrefixPingCommand()))
 				.build()
 				.awaitReady();
 
@@ -101,4 +107,14 @@ public class ClientService implements IClientService {
 		return this.DOT_ENV;
 	}
 
+	@Override
+	public EmbedBuilder getDefaultEmbedBuilder(Guild guild) {
+		return new EmbedBuilder()
+				.setAuthor(guild.getName(),guild.getIconUrl(),guild.getIconUrl())
+				.setTimestamp(Instant.now())
+				.setColor(Color.CYAN)
+				.setThumbnail(guild.getIconUrl())
+				.setFooter(String.format("Sent by %s",this.client.getSelfUser()
+						.getAsTag()),guild.getIconUrl());
+	}
 }

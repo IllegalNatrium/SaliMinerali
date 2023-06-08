@@ -9,4 +9,5 @@ public interface IPrefixCommandRegistry {
 	Collection<AbstractPrefixCommand> getPrefixCommands();
 	String[] resolveArguments(String[] input, String item);
 	String buildArguments(String[] args, String delimited);
+
 }

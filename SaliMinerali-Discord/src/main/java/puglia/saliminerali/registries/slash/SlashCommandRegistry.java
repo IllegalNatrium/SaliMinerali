@@ -21,7 +21,7 @@ public class SlashCommandRegistry extends ListenerAdapter implements ISlashComma
 
 	@Override
 	public Collection<AbstractSlashCommand> getSlashCommands() {
-		return commands.stream().collect(Collectors.toCollection(() -> this.commands));
+		return commands;
 	}
 
 	@Override

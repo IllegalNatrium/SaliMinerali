@@ -1,6 +1,7 @@
 package puglia.saliminerali.services;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 
@@ -15,4 +16,5 @@ public interface IClientService {
 	JDA getClientService();
 	Guild getGuild();
 	Dotenv getEnvironmentSettings();
+	EmbedBuilder getDefaultEmbedBuilder(Guild guild);
 }

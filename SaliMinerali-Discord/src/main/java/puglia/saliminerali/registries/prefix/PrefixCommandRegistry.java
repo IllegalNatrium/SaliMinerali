@@ -1,5 +1,9 @@
 package puglia.saliminerali.registries.prefix;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.GenericEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import puglia.saliminerali.PugliaSaliMinerali;
@@ -10,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 public class PrefixCommandRegistry extends ListenerAdapter implements IPrefixCommandRegistry {
 
